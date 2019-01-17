@@ -1,0 +1,2 @@
+# Python Websocket Bandwith Analyzer
+These python scripts can be used to analyze the bandwith of websockets running on your LAN. This can be useful for analyzing the perfromence of an IoT network communicationg with websockets or similar scenarios.
