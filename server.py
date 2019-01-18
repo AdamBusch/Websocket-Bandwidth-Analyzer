@@ -3,11 +3,21 @@ import asyncio
 import sys
 
 
-def on_client_connect(websocket, path):
+def sizeof_fmt(num, suffix='B'):
+        for unit in ['', 'Ki', 'Mi', 'Gi', 'Ti', 'Pi', 'Ei', 'Zi']:
+            if abs(num) < 1024.0:
+                return "%3.1f%s%s" % (num, unit, suffix)
+            num /= 1024.0
+        return "%.1f%s%s" % (num, 'Yi', suffix)
+
+async def on_client_connect(websocket, path):
     # Begin streaming packets to client
-    print("connected!!")
+    msg = b'\0' * int(1E6)
+    size = sizeof_fmt(sys.getsizeof(msg))
+    print("Streaming data packets of size", size)
+    
     while websocket.open:
-        websocket.send('1024 * 1024')
+        await websocket.send(msg)
 
 
 if __name__ == "__main__":
